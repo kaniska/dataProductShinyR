@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magic Number Game</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Magic Number Game">
+  <meta name="author" content="Kaniska">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Magic Number Game</h1>
+    <h2>Guess a number to beat the Machine</h2>
+    <p>Kaniska<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Welcome to Number Game</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>shinyApp folder contains the code for Number Game</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Server Code</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(shiny)
+number &lt;- floor(runif(1,1,51))
+guessNumber &lt;- function(guess, number) {
+result &lt;- &quot;Welcome to Number Game.&quot;
+if (guess &gt; 50) {
+result &lt;- &#39;You can not cross 50 ! \nNext lucky draw between 1 and 50.&#39;
+}
+else if (guess &lt; 1) {
+result &lt;- &#39;Ooho Wrong choice! \n Choose a positive integer!&#39;
+}
+else if (guess &gt; number) {
+result &lt;- &#39;You beat the machine ! You win !&#39;
+}
+else if (guess &lt; number) {
+result &lt;- &#39;Hmm.. you scored lower than machine ! \nGood luck next time!&#39;
+}
+else if (guess == number) {
+result &lt;- &#39;Its a tie! \n Go for another shot!&#39;
+}
+result
+}
+shinyServer( 
+function(input, output) {
+output$inputValue &lt;- renderPrint({as.numeric(input$guess)})
+output$outputValue &lt;- renderText({
+if (input$goButton == 0) &quot;Guess a Number!&quot;
+else if (input$goButton &gt;= 1) guessNumber(as.numeric(input$guess), number)
+})
+}
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>UI Code</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>library(shiny)</p>
+
+<p>shinyUI( pageWithSidebar(
+headerPanel(&quot;Welcome to Number Game!&quot;),</p>
+
+<p>sidebarPanel(
+textInput(&#39;guess&#39;, &#39;Number&#39;, value = &quot;&quot;),
+actionButton(&quot;goButton&quot;, &quot;Roll..&quot;)
+), 
+mainPanel(
+h2(&#39;Guess an integer between 1 and 50&#39;),
+h5(&#39;Lets see if you can beat the Machine !&#39;),
+h3(&#39;Results&#39;),
+h4(&#39;Your Entry&#39;),
+verbatimTextOutput(&quot;inputValue&quot;),
+h4(&#39;And the answer is ...&#39;),
+verbatimTextOutput(&quot;outputValue&quot;)
+)
+)</p>
+
+<pre><code></code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Beat the Machine</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Play the Game by invoking the command runApp(&quot;shinyApp&quot;) and follow the instructions on screen.  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Welcome to Number Game'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Server Code'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='UI Code'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Beat the Machine'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
