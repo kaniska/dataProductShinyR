@@ -59,33 +59,33 @@
     <pre><code class="r">library(shiny)
 number &lt;- floor(runif(1,1,51))
 guessNumber &lt;- function(guess, number) {
-result &lt;- &quot;Welcome to Number Game.&quot;
-if (guess &gt; 50) {
-result &lt;- &#39;You can not cross 50 ! \nNext lucky draw between 1 and 50.&#39;
-}
-else if (guess &lt; 1) {
-result &lt;- &#39;Ooho Wrong choice! \n Choose a positive integer!&#39;
-}
-else if (guess &gt; number) {
-result &lt;- &#39;You beat the machine ! You win !&#39;
-}
-else if (guess &lt; number) {
-result &lt;- &#39;Hmm.. you scored lower than machine ! \nGood luck next time!&#39;
-}
-else if (guess == number) {
-result &lt;- &#39;Its a tie! \n Go for another shot!&#39;
-}
-result
-}
+  result &lt;- &quot;Welcome to Number Game.&quot;
+  if (guess &gt; 50) {
+    result &lt;- &#39;You can not cross 50 ! \nNext lucky draw between 1 and 50.&#39;
+    }
+  else if (guess &lt; 1) {
+    result &lt;- &#39;Ooho Wrong choice! \n Choose a positive integer!&#39;
+    }
+  else if (guess &gt; number) {
+    result &lt;- &#39;You beat the machine ! You win !&#39;
+    }
+  else if (guess &lt; number) {
+    result &lt;- &#39;Hmm.. you scored lower than machine ! \nGood luck next time!&#39;
+    }
+  else if (guess == number) {
+    result &lt;- &#39;Its a tie! \n Go for another shot!&#39;
+    }
+  result
+  }
 shinyServer( 
-function(input, output) {
-output$inputValue &lt;- renderPrint({as.numeric(input$guess)})
-output$outputValue &lt;- renderText({
-if (input$goButton == 0) &quot;Guess a Number!&quot;
-else if (input$goButton &gt;= 1) guessNumber(as.numeric(input$guess), number)
-})
-}
-)
+  function(input, output) {
+    output$inputValue &lt;- renderPrint({as.numeric(input$guess)})
+    output$outputValue &lt;- renderText({
+      if (input$goButton == 0) &quot;Guess a Number!&quot;
+      else if (input$goButton &gt;= 1) guessNumber(as.numeric(input$guess), number)
+      })
+    }
+  )
 </code></pre>
 
   </article>
@@ -99,25 +99,37 @@ else if (input$goButton &gt;= 1) guessNumber(as.numeric(input$guess), number)
   <article data-timings="">
     <p>library(shiny)</p>
 
-<p>shinyUI( pageWithSidebar(
-headerPanel(&quot;Welcome to Number Game!&quot;),</p>
+<p>shinyUI( pageWithSidebar(</p>
+
+<p>headerPanel(&quot;Welcome to Number Game!&quot;),</p>
 
 <p>sidebarPanel(
-textInput(&#39;guess&#39;, &#39;Number&#39;, value = &quot;&quot;),
-actionButton(&quot;goButton&quot;, &quot;Roll..&quot;)
-), 
-mainPanel(
-h2(&#39;Guess an integer between 1 and 50&#39;),
-h5(&#39;Lets see if you can beat the Machine !&#39;),
-h3(&#39;Results&#39;),
-h4(&#39;Your Entry&#39;),
-verbatimTextOutput(&quot;inputValue&quot;),
-h4(&#39;And the answer is ...&#39;),
-verbatimTextOutput(&quot;outputValue&quot;)
-)
-)</p>
+    textInput(&#39;guess&#39;, &#39;Number&#39;, value = &quot;&quot;),
+    actionButton(&quot;goButton&quot;, &quot;Roll..&quot;)
+    ), </p>
 
-<pre><code></code></pre>
+<p>mainPanel(</p>
+
+<pre><code>h2(&#39;Guess an integer between 1 and 50&#39;),
+
+h5(&#39;Lets see if you can beat the Machine !&#39;),
+
+h3(&#39;Results&#39;),
+
+h4(&#39;Your Entry&#39;),
+
+  verbatimTextOutput(&quot;inputValue&quot;),
+
+h4(&#39;And the answer is ...&#39;),
+
+  verbatimTextOutput(&quot;outputValue&quot;)
+
+)
+</code></pre>
+
+<p>)</p>
+
+<p>)</p>
 
   </article>
   <!-- Presenter Notes -->
